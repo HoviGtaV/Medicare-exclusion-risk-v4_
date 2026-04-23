@@ -273,3 +273,17 @@ That means:
 
 ```powershell
 python .\score_batch_v4.py --input .\examples\sample_input_v4.csv --output .\examples\sample_output_v4.csv
+## Docker image
+
+Public Docker image:
+
+- `HoviGtaV/medicare-exclusion-risk-v4:latest`
+
+Docker Hub:
+
+- `https://hub.docker.com/r/HoviGtaV/medicare-exclusion-risk-v4`
+
+### Build locally
+
+```powershell
+docker build --no-cache -t medicare-exclusion-risk-v4 .
