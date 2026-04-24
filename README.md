@@ -20,6 +20,22 @@ Historical material is intentionally retained under:
 
 ---
 
+## Project links
+
+### GitHub repository
+
+- `https://github.com/HoviGtaV/Medicare-exclusion-risk-v4_`
+
+### Public Docker image
+
+- `hovig2004/medicare-exclusion-risk-v4:latest`
+
+### Docker Hub
+
+- `https://hub.docker.com/r/hovig2004/medicare-exclusion-risk-v4`
+
+---
+
 ## Project objective
 
 The project predicts whether a provider-year record is followed by an OIG exclusion event within a fixed future horizon.
@@ -266,24 +282,57 @@ The current deployment story is strongest for **batch scoring** of an already pr
 
 That means:
 
-- input = a CSV with the required v4 feature columns
+- input = a CSV or parquet file with the required v4 feature columns
 - output = scored rows with `score_catboost_final_v4`
 
 ### Local example
 
 ```powershell
 python .\score_batch_v4.py --input .\examples\sample_input_v4.csv --output .\examples\sample_output_v4.csv
-## Docker image
+```
 
-Public Docker image:
+### Docker example
 
-- `HoviGtaV/medicare-exclusion-risk-v4:latest`
+```powershell
+docker pull hovig2004/medicare-exclusion-risk-v4:latest
+docker run --rm -v "${PWD}\examples:/app/examples" hovig2004/medicare-exclusion-risk-v4:latest python score_batch_v4.py --input /app/examples/sample_input_v4.csv --output /app/examples/sample_output_docker_v4.csv
+```
 
-Docker Hub:
-
-- `https://hub.docker.com/r/HoviGtaV/medicare-exclusion-risk-v4`
-
-### Build locally
+### Optional local Docker build
 
 ```powershell
 docker build --no-cache -t medicare-exclusion-risk-v4 .
+```
+
+---
+
+## Submission materials included in this repository
+
+- one-page report: `submission/report/report_one_page_final.md`
+- final presentation slides: `submission/slides/presentation_final_content.md`
+- video demo script: `submission/video/video_demo_script_final.md`
+- pipeline trace: `submission/docs/PIPELINE_TRACE.md`
+- label policy appendix: `submission/docs/LABEL_POLICY_APPENDIX.md`
+- full data dictionary: `submission/docs/DATA_DICTIONARY_V4_FULL.md`
+- monitoring artifacts: `submission/monitoring`
+- QA outputs: `submission/qa`
+
+---
+
+## Important interpretation note
+
+This project produces a **risk ranking score** based on exclusion-linked proxy labels.
+
+It should be used for:
+
+- review prioritization
+- ranking
+- monitoring
+- analytical follow-up
+
+It should **not** be interpreted as:
+
+- proof of fraud
+- proof of guilt
+- proof of criminal intent
+- an automatic enforcement decision
